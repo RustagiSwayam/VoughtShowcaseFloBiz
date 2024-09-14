@@ -95,12 +95,13 @@ class SegmentedProgressBar: UIView {
         if hasDoneLayout {
             return
         }
-        let width = (frame.width - (padding * CGFloat(segments.count - 1)) ) / CGFloat(segments.count)
+        
+        let width = (frame.width - (padding * CGFloat(segments.count - 1))) / CGFloat(segments.count)
         for (index, segment) in segments.enumerated() {
             let segFrame = CGRect(x: CGFloat(index) * (width + padding), y: 0, width: width, height: frame.height)
             segment.bottomSegmentView.frame = segFrame
             segment.topSegmentView.frame = segFrame
-            segment.topSegmentView.frame.size.width = 0
+            segment.topSegmentView.frame.size.width = 0 
             
             let cr = frame.height / 2
             segment.bottomSegmentView.layer.cornerRadius = cr
@@ -108,12 +109,22 @@ class SegmentedProgressBar: UIView {
         }
         hasDoneLayout = true
     }
+
     
     /// Starts the progress bar animation.
     func startAnimation() {
         layoutSubviews()
         animate()
     }
+    
+    func reset() {
+        for segment in segments {
+            segment.topSegmentView.frame.size.width = 0
+        }
+        currentAnimationIndex = 0
+        hasDoneLayout = false
+    }
+
     
     private func animate(animationIndex: Int = 0) {
         let nextSegment = segments[animationIndex]

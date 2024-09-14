@@ -8,7 +8,6 @@
 import UIKit
 
 class ImageViewController: UIViewController {
-    
     private let imageName: String
     private let imageView: UIImageView
     
@@ -33,7 +32,7 @@ class ImageViewController: UIViewController {
     private func setupView() {
         
         // Set image view properties
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named: imageName)
         
         // Add image view to view
