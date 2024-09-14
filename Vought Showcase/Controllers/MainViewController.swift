@@ -8,24 +8,41 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
+    //all ui components extended in MainViewController+UI
+    
     @IBOutlet weak var containerView: UIView!
+    
+     var buttonTapped = false
+     var openCarouselButton: UIButton!
+     var infoLabel: UILabel!
+    
+    // MARK: - MainVC LifecycleMethods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        initCarouselView()
+        setupOpenCarouselButton()
+        setupInfoLabel()
     }
     
-    private func initCarouselView() {
-        // Create a carousel item provider
-        let carouselItemProvider = CarouselItemDataSourceProvider()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        // Create carouselViewController
-        let carouselViewController = CarouselViewController(items: carouselItemProvider.items())
-        
-        // Add carousel view controller in container view
-        add(asChildViewController: carouselViewController, containerView: containerView)
+        if buttonTapped {
+            openCarouselButton.layer.borderColor = UIColor.gray.cgColor
+        } else {
+            openCarouselButton.layer.borderColor = UIColor.blue.withAlphaComponent(0.4).cgColor
+        }
     }
     
+    private func setupContainerViewFullScreen() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: view.topAnchor),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
 }
-
